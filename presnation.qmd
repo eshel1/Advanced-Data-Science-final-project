@@ -418,7 +418,7 @@ print(cor8)
 ```
 
 | Variables                              | tau       | z-value | p-value   | Interpretation      |
-|-------------------|--------------|--------------|--------------|--------------|
+|----------------------------------------|-----------|---------|-----------|---------------------|
 | carto_pop & age_y_pec                  | 0.2756239 | 5.3835  | 7.306e-08 | highly significant. |
 | carto_pop & age_a_pec                  | 0.3415484 | 6.6751  | 2.471e-11 | highly significant. |
 | carto_pop & Vehicle2up_pcnt            | 0.0877212 | 1.6085  | 0.1077    | highly significant. |
