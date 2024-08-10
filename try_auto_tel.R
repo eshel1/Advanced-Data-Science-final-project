@@ -2,6 +2,7 @@ library(sf)
 library(dplyr)
 library(tidyverse)
 library(corrgram)
+library(mapview)
 getwd()
 #spatil---------
 # Set your working directory
@@ -295,15 +296,80 @@ print(cor_tests)
   spatil_data=left_join(polygon,final_data)
   colors <- rainbow(10)
     plot(spatil_data[, -1],axes = TRUE)
-  
-  
-  map_list <- lapply(names(final_data)[-1], function(col) {
-    mapview(spatil_data, zcol = col, layer.name = col)
-  })
-  
-  # Combine all mapview objects into one interactive map
-  combined_map <- reduce(map_list, `+`)
-  
-  # Plot the combined mapview
-  combined_map
-  
+    
+    plot((spatil_data[,4]))
+    spatil_data$logacar=log(spatil_data$carto_pop)
+    plot((spatil_data[,12]))
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    map <- mapview()
+    
+    # Add each column as a separate layer
+    for(col in names(spatil_data)) {
+      if(is.numeric(spatil_data[[col]])) {
+        map <- map + mapview(spatil_data, zcol = col, layer.name = col)
+      }
+    }
+    
+    # Display the map
+    map
+    
+    map <- mapview()
+    
+    # Add each numeric column as a separate layer without a legend
+    for(col in names(spatil_data)) {
+      if(is.numeric(spatil_data[[col]])) {
+        map <- map + mapview(spatil_data, zcol = col, layer.name = col, legend = FALSE)
+      }
+    }
+    
+    # Display the map
+    map
+    
+    
+    
+    
+    
+    
+    
+    View(final_data)
+    
+    
+    
+    final_data=final_data|>arrange(desc(carto_pop))
+    final_data$carto_pop[1:2] <- 0
+    final_data= final_data|>filter(carto_pop!=0)
+    
+    dim(final_data)
+    View(final_data)
+    shapiro.test(v)
+    ggplot(data = final_data)+geom_histogram(aes(x=carto_pop),fill = "skyblue", color = "black")
+    ggplot(data = final_data)+geom_histogram(aes(x=v),fill = "skyblue", color = "black")
+    v=1/final_data$carto_pop
+    v[is.infinite(v)] <- 0
+    
+    
+
+    
+    ggplot(final_data, aes(y = Cars_per_capita,x=Economics_Index)) +
+      geom_point(color = "blue")+geom_smooth(method = "lm") +labs(
+        title = "Cars per Capita vs. Economic Index",
+        x = "SelfEmployedAnnual_medWage", # X-axis label
+        y = "Cars_per_capita" ,# Y-axis label
+              )
+    
+    
+    
+    ggplot(final_data, aes(x = age_a_pec, y = 
